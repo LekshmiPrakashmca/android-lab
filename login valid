@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LOGIN FORM"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="164dp"
+        tools:layout_editor_absoluteY="161dp" />
+
+    <TextView
+        android:id="@+id/uname"
+        android:padding="10dp"
+        android:layout_below="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="USERNAME"
+        tools:layout_editor_absoluteX="61dp"
+        tools:layout_editor_absoluteY="261dp" />
+
+    <EditText
+        android:id="@+id/uname1"
+        android:padding="10dp"
+        android:layout_below="@+id/uname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text=""
+        tools:layout_editor_absoluteX="153dp"
+        tools:layout_editor_absoluteY="245dp" />
+
+    <TextView
+        android:id="@+id/pass"
+        android:layout_below="@+id/uname1"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:text="PASSWORD"
+        tools:layout_editor_absoluteX="68dp"
+        tools:layout_editor_absoluteY="326dp" />
+
+    <EditText
+        android:id="@+id/pass1"
+        android:padding="10dp"
+        android:layout_below="@+id/pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text=""
+        tools:layout_editor_absoluteX="166dp"
+        tools:layout_editor_absoluteY="313dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:padding="10dp"
+        android:layout_below="@+id/pass1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LOGIN"
+        tools:layout_editor_absoluteX="153dp"
+        tools:layout_editor_absoluteY="456dp" />
+
+</RelativeLayout>
+
+
+
+package com.example.loginvalidation;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText uname,pass;
+    Button btn;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        uname=findViewById(R.id.uname1);
+        pass=findViewById(R.id.pass1);
+        btn=findViewById(R.id.button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(TextUtils.isEmpty(uname.getText().toString()))
+                {
+                    uname.setError("name cannot be empty");
+                }
+                else if (!isvalidpassword(pass.getText().toString()))
+                {
+                    pass.setError("invalid password");
+                }
+                else
+                {
+                    Toast.makeText(MainActivity.this,"succesfull login",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+    }
+    private boolean isvalidpassword(String pass)
+    {
+        String passpattern=".*[@#$%^&+=!].*";
+        return pass.length()>=8 && pass.matches(passpattern);
+    }
+}
