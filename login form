@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:text="LOGIN FORM"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="121dp" />
+
+    <TextView
+        android:id="@+id/user"
+        android:layout_below="@+id/textView"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:text="USERNAME"
+        tools:layout_editor_absoluteX="49dp"
+        tools:layout_editor_absoluteY="233dp" />
+
+    <EditText
+        android:id="@+id/usern"
+        android:padding="10dp"
+        android:layout_below="@+id/user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text=""
+        tools:layout_editor_absoluteX="198dp"
+        tools:layout_editor_absoluteY="233dp" />
+
+    <TextView
+        android:id="@+id/pass"
+        android:padding="10dp"
+        android:layout_below="@+id/usern"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PASSWORD"
+        tools:layout_editor_absoluteX="49dp"
+        tools:layout_editor_absoluteY="326dp" />
+
+    <EditText
+        android:id="@+id/pass1"
+        android:padding="10dp"
+        android:layout_below="@+id/pass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:text=""
+        tools:layout_editor_absoluteX="197dp"
+        tools:layout_editor_absoluteY="320dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pass1"
+        android:text="SUBMIT"
+        tools:layout_editor_absoluteX="132dp"
+        tools:layout_editor_absoluteY="462dp" />
+
+</RelativeLayout>
+
+
+package com.example.login1;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+ TextView t1,t2;
+ EditText usr,pass;
+ Button b1;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        usr=findViewById(R.id.usern);
+        pass=findViewById(R.id.pass1);
+        b1=findViewById(R.id.button);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String a = usr.getText().toString();
+                String b = pass.getText().toString();
+                if (a.isEmpty()) {
+                    usr.setError("username empty not allowed");
+                    Toast.makeText(MainActivity.this, "username empty not allowed", Toast.LENGTH_SHORT).show();
+                }
+                if (b.isEmpty()) {
+                    pass.setError("passwrd empty not allowed");
+                    Toast.makeText(MainActivity.this, "password empty not alllowed", Toast.LENGTH_SHORT).show();
+                }
+                if (a.equals("admin") && b.equals("admin")) {
+                    Toast.makeText(MainActivity.this, "login successfull", Toast.LENGTH_SHORT).show();
+                }
+                if (!a.equals("admin") || !b.equals("admin")) {
+                    Toast.makeText(MainActivity.this, "unsuccessfull login", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+}
